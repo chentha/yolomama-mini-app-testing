@@ -69,6 +69,16 @@ UserInfo: any;
 
   ngOnInit(){
     console.log('data loaded item list')
+    this.hideBackButton();
+  }
+
+
+  hideBackButton() {
+    this.telegramService.hideBackButton();
+
+    // this.telegramService.onBack(() => {
+    //   this.router.navigate(['/product-list']);
+    // });
   }
 
 

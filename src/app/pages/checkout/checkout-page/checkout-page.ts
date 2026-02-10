@@ -35,16 +35,16 @@ export class CheckoutPage {
     this.showBackButton();
   }
 
-  ngOnDestroy() {
-    this.telegram.hideBackButton();
-  }
+  // ngOnDestroy() {
+  //   this.telegram.hideBackButton();
+  // }
 
   //button back to product page
   showBackButton(){
       this.telegramService.showBackButton();
 
       this.telegramService.onBack(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['/product-list']);
       });
   }
 
