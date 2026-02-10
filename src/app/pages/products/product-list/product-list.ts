@@ -60,7 +60,8 @@ export class ProductList {
   AllData: Product[] = [];
   checkAllData: any;
   UserInfo: any;
-  phone_number: any
+  phone_number: any;
+  checkUserInfo:any;
 
   constructor(
     private cartService: CartService,
@@ -103,10 +104,10 @@ export class ProductList {
 
   //Telegram process 
   async LoadTelegramUserInfo() {
-    const cached = this.telegramService.getUserInfoFromStorage();
-    if (cached) {
-      console.log('Loaded UserInfo from localStorage:', cached);
-      this.UserInfo = cached;
+    this.checkUserInfo = this.telegramService.getUserInfoFromStorage();
+    if (this.checkUserInfo) {
+      console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
+      this.UserInfo = this.checkUserInfo;
       return;
     }
 
@@ -125,6 +126,7 @@ export class ProductList {
       const result = await this.telegramService.requestPhoneNumber();
       this.UserInfo.phone_number = result.phone;
       this.telegramService.saveUserInfoToStorage(this.UserInfo);
+      this.checkUserInfo = this.telegramService.getUserInfoFromStorage();
 
     } catch (error) {
       this.telegramService.saveUserInfoToStorage(this.UserInfo);
