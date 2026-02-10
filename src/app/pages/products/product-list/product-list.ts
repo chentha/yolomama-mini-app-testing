@@ -135,8 +135,8 @@ export class ProductList {
 
   //clear local storage data
   clearUserInfo(){
-    this.checkUserInfo = this.telegramService.clearUserInfoFromStorage();
-    
+    this.UserInfo = this.telegramService.clearUserInfoFromStorage();
+
   }
 
 
