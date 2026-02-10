@@ -44,7 +44,7 @@ export class CheckoutPage {
       this.telegramService.showBackButton();
 
       this.telegramService.onBack(() => {
-        this.router.navigate(['/product-list']);
+        this.router.navigate(['']);
       });
   }
 
