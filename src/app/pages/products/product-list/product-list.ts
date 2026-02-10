@@ -113,7 +113,7 @@ export class ProductList {
     }
 
     const webApp = this.telegramService.getWebApp();
-    const user = webApp.initDataUnsafe?.user;
+    const user = webApp.initDataUnsafe?.user || null;
 
     this.UserInfo = {
       id: user?.id || null,
