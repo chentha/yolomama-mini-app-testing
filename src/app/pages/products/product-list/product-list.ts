@@ -60,6 +60,7 @@ export class ProductList {
 AllData: Product[] = [];
 checkAllData: any;
 UserInfo: any;
+phone_number:any
 
   constructor(
     private cartService: CartService,
@@ -73,6 +74,10 @@ UserInfo: any;
     // this.getData()
     this.LoadTelegramUserInfo();
     this.hideBackButton();
+
+    this.cartService.clear();
+
+    this.phone_number = this.telegramService.requestPhoneNumber();
   }
 
 

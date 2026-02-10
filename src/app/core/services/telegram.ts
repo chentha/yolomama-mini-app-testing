@@ -12,7 +12,7 @@ export class Telegram {
     private generalService: General
   ) {
     this.tg.ready();
-    // this.tg.expand();
+    this.tg.expand();
   }
 
 
@@ -78,9 +78,9 @@ export class Telegram {
 
   //save user info tg into storage
   saveUserInStorage(user:any){
-    if(user){
-      localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
-    } 
+    // if(user){
+    //   localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
+    // } 
   }
 
 
