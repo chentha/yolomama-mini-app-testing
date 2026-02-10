@@ -136,12 +136,14 @@ export class Telegram {
   }
 
 
-  clearAppData() {
-    const tgWebApp = (window as any).Telegram?.WebApp;
-    if (tgWebApp?.clearData) {
-      tgWebApp.clearData();
-    } else {
-      console.warn('Telegram WebApp API not available');
-    }
-  }
+  // clearAppData() {
+  //   const tgWebApp = (window as any).Telegram?.WebApp;
+  //   if (tgWebApp?.clearData) {
+  //     tgWebApp.clearData();
+  //   } else {
+  //     console.warn('Telegram WebApp API not available');
+  //   }
+  // }
+
+  
 }

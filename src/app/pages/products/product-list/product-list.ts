@@ -135,9 +135,9 @@ export class ProductList {
   }
 
 
-  resetData(){
-    this.telegramService.clearAppData();
-  }
+  // resetData(){
+  //   this.telegramService.clearAppData();
+  // }
 
   // openUserInfoModal() {
   // // Reload UserInfo from storage to get the latest phone number
