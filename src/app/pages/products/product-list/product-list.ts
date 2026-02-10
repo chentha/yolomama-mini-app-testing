@@ -102,22 +102,29 @@ phone_number:any
 
 
   //Telegram process 
-  LoadTelegramUserInfo(){
+async LoadTelegramUserInfo() {
+  const webApp = this.telegramService.getWebApp();
+  const user = webApp.initDataUnsafe?.user || null;
 
-    //request phone number user 
-    const phone_number = this.telegramService.requestPhoneNumber();
-    const webApp = this.telegramService.getWebApp();
-    const user = webApp.initDataUnsafe?.user || null;
+  // Set basic info first
+  this.UserInfo = {
+    id: user?.id || null,
+    firstName: user?.first_name || null,
+    lastName: user?.last_name || null,
+    username: user?.username || null,
+    phone_number: null
+  };
 
-    this.UserInfo = {
-      id: user?.id || null,
-      firstName: user?.first_name || null,
-      lastName: user?.last_name || null,
-      username: user?.username || null,
-      phone_number: phone_number
-    }
+  try {
+    // Await the promise to get the actual phone number
+    const result = await this.telegramService.requestPhoneNumber();
+    console.log('Phone result:', result);
+    this.UserInfo.phone_number = result.phone;
+  } catch (error) {
+    console.error('Phone request failed:', error);
+    // User declined or contact not available
   }
-
+}
 
 
   //increase cart
