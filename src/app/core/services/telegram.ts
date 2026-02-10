@@ -131,8 +131,8 @@ export class Telegram {
   }
 
 
-  clearUserInfoFromStorage(): void {
-    localStorage.removeItem('tg_user_info');
+  clearUserInfoFromStorage() {
+    localStorage.clear();
   }
 
 
@@ -145,5 +145,5 @@ export class Telegram {
   //   }
   // }
 
-  
+
 }

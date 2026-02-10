@@ -144,10 +144,9 @@ export class ProductList {
   // }
 
   //clear local storage data
-  // clearUserInfo(){
-  //   this.UserInfo = this.telegramService.clearUserInfoFromStorage();
-
-  // }
+  clearUserInfo(){
+    this.UserInfo = this.telegramService.clearUserInfoFromStorage();
+  }
 
 
   //increase cart
