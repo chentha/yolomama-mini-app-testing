@@ -5,6 +5,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { Product } from '../../../core/models/product.model';
 import { Telegram } from '../../../core/services/telegram';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-product-list',
   imports: [CommonModule, RouterLink],
@@ -126,11 +127,17 @@ export class ProductList {
       const result = await this.telegramService.requestPhoneNumber();
       this.UserInfo.phone_number = result.phone;
       this.telegramService.saveUserInfoToStorage(this.UserInfo);
-      this.checkUserInfo = this.telegramService.getUserInfoFromStorage();
+      this.UserInfo = this.telegramService.getUserInfoFromStorage();
 
     } catch (error) {
       this.telegramService.saveUserInfoToStorage(this.UserInfo);
     }
+  }
+
+  openUserInfoModal() {
+  // Reload UserInfo from storage to get the latest phone number
+    this.UserInfo = this.telegramService.getUserInfoFromStorage();
+
   }
 
   //clear local storage data
