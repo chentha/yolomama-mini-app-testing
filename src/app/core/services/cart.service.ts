@@ -34,12 +34,31 @@ export class CartService {
 
 
   //update qty product
-  updateQty(productId: number, qty: number) {
-    const cart = this.cart$.value.map(i =>
-      i.product.id === productId ? { ...i, qty } : i
-    ).filter(i => i.qty > 0);
+  // updateQty(productId: number, qty: number) {
+  //   const cart = this.cart$.value.map(i =>
+  //     i.product.id === productId ? { ...i, qty } : i
+  //   ).filter(i => i.qty > 0);
 
-    this.cart$.next(cart);
+  //   this.cart$.next(cart);
+  // }
+  
+
+  updateQty(productId: number, qty: number, productData?: any) {
+    let cart = this.cart$.value;
+    const index = cart.findIndex(i => i.product.id === productId);
+
+    if (index !== -1) {
+      // Update existing product
+      cart[0].qty = qty;
+    } else if (productData) {
+      // Add new product if provided
+      cart.push({ product: productData, qty });
+    }
+
+    // Remove items with qty 0
+    cart = cart.filter(i => i.qty > 0);
+
+    this.cart$.next([...cart]);
   }
 
 
@@ -60,5 +79,11 @@ export class CartService {
     return this.cart$.value.reduce((sum, i) => sum + i.qty, 0);
   }
 
+
+  // Clear all items from cart
+  clear() {
+    this.cart$.next([]);
+    console.log('Cart cleared');
+  }
 
 }

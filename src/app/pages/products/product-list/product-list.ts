@@ -58,6 +58,7 @@ export class ProductList {
   ];
 
 AllData: Product[] = [];
+checkAllData: any;
 UserInfo: any;
 
   constructor(
@@ -68,9 +69,22 @@ UserInfo: any;
   }
 
   ngOnInit(){
-    console.log('data loaded item list')
+    // console.log('data loaded item list');
+    // this.getData()
+    this.LoadTelegramUserInfo();
     this.hideBackButton();
   }
+
+
+  //  getData(){
+  //   this.cartService.getCart().subscribe(
+  //     (respone:any) =>{
+  //       console.log('data cart1', respone);
+  //       this.checkAllData = respone[0]?.product;
+  //     }
+  //   )
+  // }
+
 
 
   hideBackButton() {
@@ -150,8 +164,17 @@ UserInfo: any;
 
   //add data to cart
   AddCart(){
-    this.cartService.add(this.AllData);
+
+    if(!this.checkAllData){
+      this.cartService.add(this.AllData);
+    }else{
+     this.AllData.forEach(item => {
+      this.cartService.updateQty(item.id, item.qty, item);
+    });
+    }
+    
   }
+
 
 
   get totalItems() {
