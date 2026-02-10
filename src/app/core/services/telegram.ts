@@ -15,6 +15,19 @@ export class Telegram {
     // this.tg.expand();
   }
 
+
+  showBackButton() {
+    this.tg?.BackButton.show();
+  }
+
+  hideBackButton() {
+    this.tg?.BackButton.hide();
+  }
+
+  onBack(callback: () => void) {
+    this.tg?.BackButton.onClick(callback);
+  }
+
   // Handle all possible callback formats
   requestPhoneNumber(): Promise<{ phone: string; contact: any }> {
     return new Promise((resolve, reject) => {

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { PaymentMethod } from '../../../core/services/payment-method';
+import { Telegram } from '../../../core/services/telegram';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-page',
@@ -15,18 +17,38 @@ export class CheckoutPage {
   selectedMethod: any;
 
    payment_method:any;
+  telegram: any;
+
 
   constructor(
     public cartService: CartService,
-    private paymentMethod: PaymentMethod
+    private paymentMethod: PaymentMethod,
+    private telegramService: Telegram,
+    private router: Router
   ){
     
   }
 
   ngOnInit(){
-    this.getPaymentMethod()
+    this.getPaymentMethod();
     this.getData();
+    this.showBackButton();
   }
+
+  ngOnDestroy() {
+    this.telegram.hideBackButton();
+  }
+
+
+  //button back to product page
+  showBackButton(){
+      this.telegramService.showBackButton();
+
+      this.telegram.onBack(() => {
+        this.router.navigate(['/home']);
+      });
+  }
+
 
   getData(){
     this.cartService.getCart().subscribe(
