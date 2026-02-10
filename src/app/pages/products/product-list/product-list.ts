@@ -12,7 +12,7 @@ import { Telegram } from '../../../core/services/telegram';
   styleUrl: './product-list.scss',
 })
 export class ProductList {
-   products = [
+  products = [
     {
       id: 1,
       name: 'Ticket',
@@ -57,10 +57,10 @@ export class ProductList {
     }
   ];
 
-AllData: Product[] = [];
-checkAllData: any;
-UserInfo: any;
-phone_number:any
+  AllData: Product[] = [];
+  checkAllData: any;
+  UserInfo: any;
+  phone_number: any
 
   constructor(
     private cartService: CartService,
@@ -69,7 +69,7 @@ phone_number:any
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
     // console.log('data loaded item list');
     // this.getData()
     this.LoadTelegramUserInfo();
@@ -77,7 +77,7 @@ phone_number:any
 
     this.cartService.clear();
 
-    this.phone_number = this.telegramService.requestPhoneNumber();
+    // this.phone_number = this.telegramService.requestPhoneNumber();
   }
 
 
@@ -102,34 +102,34 @@ phone_number:any
 
 
   //Telegram process 
-async LoadTelegramUserInfo() {
-  const cached = this.telegramService.getUserInfoFromStorage();
-  if (cached) {
-    console.log('Loaded UserInfo from localStorage:', cached);
-    this.UserInfo = cached;
-    return;
+  async LoadTelegramUserInfo() {
+    const cached = this.telegramService.getUserInfoFromStorage();
+    if (cached) {
+      console.log('Loaded UserInfo from localStorage:', cached);
+      this.UserInfo = cached;
+      return;
+    }
+
+    const webApp = this.telegramService.getWebApp();
+    const user = webApp.initDataUnsafe?.user || null;
+
+    this.UserInfo = {
+      id: user?.id || null,
+      firstName: user?.first_name || null,
+      lastName: user?.last_name || null,
+      username: user?.username || null,
+      phone_number: null
+    };
+
+    try {
+      const result = await this.telegramService.requestPhoneNumber();
+      this.UserInfo.phone_number = result.phone;
+      this.telegramService.saveUserInfoToStorage(this.UserInfo);
+
+    } catch (error) {
+      this.telegramService.saveUserInfoToStorage(this.UserInfo);
+    }
   }
-
-  const webApp = this.telegramService.getWebApp();
-  const user = webApp.initDataUnsafe?.user || null;
-
-  this.UserInfo = {
-    id: user?.id || null,
-    firstName: user?.first_name || null,
-    lastName: user?.last_name || null,
-    username: user?.username || null,
-    phone_number: null
-  };
-
-  try {
-    const result = await this.telegramService.requestPhoneNumber();
-    this.UserInfo.phone_number = result.phone;
-    this.telegramService.saveUserInfoToStorage(this.UserInfo);
-
-  } catch (error) {
-    this.telegramService.saveUserInfoToStorage(this.UserInfo);
-  }
-}
 
 
   //increase cart
@@ -142,7 +142,7 @@ async LoadTelegramUserInfo() {
   //decrease cart
   decrease(p: any) {
     if (p.qty > 0) p.qty--;
-     this.UpdatedAllData(p);
+    this.UpdatedAllData(p);
   }
 
   //on input in or de cart
@@ -166,11 +166,11 @@ async LoadTelegramUserInfo() {
       if (index === -1) {
         this.AllData.push({ ...data });
       } else {
-        this.AllData[index].qty = data.qty; 
+        this.AllData[index].qty = data.qty;
       }
     } else {
       if (index !== -1) {
-        this.AllData.splice(index, 1); 
+        this.AllData.splice(index, 1);
       }
     }
 
@@ -180,16 +180,16 @@ async LoadTelegramUserInfo() {
 
 
   //add data to cart
-  AddCart(){
+  AddCart() {
 
-    if(!this.checkAllData){
+    if (!this.checkAllData) {
       this.cartService.add(this.AllData);
-    }else{
-     this.AllData.forEach(item => {
-      this.cartService.updateQty(item.id, item.qty, item);
-    });
+    } else {
+      this.AllData.forEach(item => {
+        this.cartService.updateQty(item.id, item.qty, item);
+      });
     }
-    
+
   }
 
 
