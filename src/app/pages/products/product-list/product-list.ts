@@ -106,11 +106,11 @@ export class ProductList {
   //Telegram process 
   async LoadTelegramUserInfo() {
     this.checkUserInfo = this.telegramService.getUserInfoFromStorage();
-    if (this.checkUserInfo) {
-      console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
-      this.UserInfo = this.checkUserInfo;
-      return;
-    }
+    // if (this.checkUserInfo) {
+    //   console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
+    //   this.UserInfo = this.checkUserInfo;
+    //   return;
+    // }
 
     const webApp = this.telegramService.getWebApp();
     const user = webApp.initDataUnsafe?.user || null;
