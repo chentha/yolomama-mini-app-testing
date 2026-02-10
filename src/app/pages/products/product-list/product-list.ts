@@ -133,6 +133,12 @@ export class ProductList {
     }
   }
 
+  //clear local storage data
+  clearUserInfo(){
+    this.checkUserInfo = this.telegramService.clearUserInfoFromStorage();
+    
+  }
+
 
   //increase cart
   increase(p: any) {
