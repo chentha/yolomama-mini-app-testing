@@ -103,7 +103,6 @@ phone_number:any
 
   //Telegram process 
 async LoadTelegramUserInfo() {
-  // ✅ Check localStorage first — skip Telegram request if already saved
   const cached = this.telegramService.getUserInfoFromStorage();
   if (cached) {
     console.log('Loaded UserInfo from localStorage:', cached);
@@ -124,15 +123,10 @@ async LoadTelegramUserInfo() {
 
   try {
     const result = await this.telegramService.requestPhoneNumber();
-    console.log('Phone result:', result);
     this.UserInfo.phone_number = result.phone;
-
-    // ✅ Save to localStorage after successfully getting phone
     this.telegramService.saveUserInfoToStorage(this.UserInfo);
 
   } catch (error) {
-    console.error('Phone request failed:', error);
-    // Still save partial info (without phone) so we don't re-prompt basic fields
     this.telegramService.saveUserInfoToStorage(this.UserInfo);
   }
 }

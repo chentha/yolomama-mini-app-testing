@@ -32,18 +32,18 @@ export class Telegram {
   // requestPhoneNumber(): Promise<{ phone: string; contact: any }> {
   //   return new Promise((resolve, reject) => {
   //     console.log('Requesting contact...');
-      
+
   //     this.tg.requestContact((sent: boolean, event: any) => {
   //       console.log('Callback triggered sent:', sent);
   //       console.log('Callback event:', event);
-        
+
   //       if (sent) {
 
   //         if (event && event.responseUnsafe && event.responseUnsafe.contact) {
   //           const contact = event.responseUnsafe.contact;
-            
+
   //           console.log('Contact data received:', contact);
-            
+
   //           resolve({
   //             phone: contact.phone_number,
   //             contact: contact
@@ -60,30 +60,30 @@ export class Telegram {
   // }
 
   requestPhoneNumber(): Promise<{ phone: string; contact: any }> {
-  return new Promise((resolve, reject) => {
-    this.tg.requestContact((sent: boolean, event: any) => {
-      console.log('sent:', sent, 'event:', event);
+    return new Promise((resolve, reject) => {
+      this.tg.requestContact((sent: boolean, event: any) => {
+        console.log('sent:', sent, 'event:', event);
 
-      if (!sent) {
-        return reject('User declined');
-      }
+        if (!sent) {
+          return reject('User declined');
+        }
 
-      // Try multiple possible locations for the contact data
-      const contact =
-        event?.responseUnsafe?.contact ||
-        event?.response?.contact ||
-        event?.contact ||
-        null;
+        // Try multiple possible locations for the contact data
+        const contact =
+          event?.responseUnsafe?.contact ||
+          event?.response?.contact ||
+          event?.contact ||
+          null;
 
-      if (contact?.phone_number) {
-        resolve({ phone: contact.phone_number, contact });
-      } else {
-        console.error('Unexpected event structure:', JSON.stringify(event));
-        reject('Contact data not available');
-      }
+        if (contact?.phone_number) {
+          resolve({ phone: contact.phone_number, contact });
+        } else {
+          console.error('Unexpected event structure:', JSON.stringify(event));
+          reject('Contact data not available');
+        }
+      });
     });
-  });
-}
+  }
 
 
   getWebApp() {
@@ -95,7 +95,7 @@ export class Telegram {
   // }
 
   logAllUserData() {
-    
+
     return {
       user: this.tg.initDataUnsafe.user,
     };
@@ -103,7 +103,7 @@ export class Telegram {
 
 
   //save user info tg into storage
-  saveUserInStorage(user:any){
+  saveUserInStorage(user: any) {
     // if(user){
     //   localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
     // } 
@@ -112,28 +112,28 @@ export class Telegram {
 
 
   saveUserInfoToStorage(userInfo: any): void {
-  try {
-    localStorage.setItem('tg_user_info', JSON.stringify(userInfo));
-    console.log('UserInfo saved to localStorage');
-  } catch (error) {
-    console.error('Failed to save UserInfo:', error);
+    try {
+      localStorage.setItem('tg_user_info', JSON.stringify(userInfo));
+      console.log('UserInfo saved to localStorage');
+    } catch (error) {
+      console.error('Failed to save UserInfo:', error);
+    }
   }
-}
 
-getUserInfoFromStorage(): any | null {
-  try {
-    const data = localStorage.getItem('tg_user_info');
-    return data ? JSON.parse(data) : null;
-  } catch (error) {
-    console.error('Failed to get UserInfo from localStorage:', error);
-    return null;
+  getUserInfoFromStorage(): any | null {
+    try {
+      const data = localStorage.getItem('tg_user_info');
+      return data ? JSON.parse(data) : null;
+    } catch (error) {
+      console.error('Failed to get UserInfo from localStorage:', error);
+      return null;
+    }
   }
-}
 
 
-clearUserInfoFromStorage(): void {
-  localStorage.removeItem('tg_user_info');
-}
+  clearUserInfoFromStorage(): void {
+    localStorage.removeItem('tg_user_info');
+  }
 
 
 
