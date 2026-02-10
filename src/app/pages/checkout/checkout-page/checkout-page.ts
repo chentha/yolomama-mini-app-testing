@@ -39,12 +39,11 @@ export class CheckoutPage {
     this.telegram.hideBackButton();
   }
 
-
   //button back to product page
   showBackButton(){
       this.telegramService.showBackButton();
 
-      this.telegram.onBack(() => {
+      this.telegramService.onBack(() => {
         this.router.navigate(['/product-list']);
       });
   }
