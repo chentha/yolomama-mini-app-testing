@@ -110,4 +110,31 @@ export class Telegram {
   }
 
 
+
+  saveUserInfoToStorage(userInfo: any): void {
+  try {
+    localStorage.setItem('tg_user_info', JSON.stringify(userInfo));
+    console.log('UserInfo saved to localStorage');
+  } catch (error) {
+    console.error('Failed to save UserInfo:', error);
+  }
+}
+
+getUserInfoFromStorage(): any | null {
+  try {
+    const data = localStorage.getItem('tg_user_info');
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error('Failed to get UserInfo from localStorage:', error);
+    return null;
+  }
+}
+
+
+clearUserInfoFromStorage(): void {
+  localStorage.removeItem('tg_user_info');
+}
+
+
+
 }
