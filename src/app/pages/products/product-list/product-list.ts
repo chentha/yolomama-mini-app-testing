@@ -134,6 +134,11 @@ export class ProductList {
     }
   }
 
+
+  resetData(){
+    this.telegramService.clearAppData();
+  }
+
   // openUserInfoModal() {
   // // Reload UserInfo from storage to get the latest phone number
   //   this.UserInfo = this.telegramService.getUserInfoFromStorage();

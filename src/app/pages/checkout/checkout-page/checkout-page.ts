@@ -135,6 +135,7 @@ export class CheckoutPage {
     this.selectedMethod = method;
   }
 
+  
   // get totalItems() {
   //   return this.products.reduce((a, b) => a + b.qty, 0);
   // }
