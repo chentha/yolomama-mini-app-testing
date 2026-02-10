@@ -134,11 +134,11 @@ export class ProductList {
     }
   }
 
-  openUserInfoModal() {
-  // Reload UserInfo from storage to get the latest phone number
-    this.UserInfo = this.telegramService.getUserInfoFromStorage();
+  // openUserInfoModal() {
+  // // Reload UserInfo from storage to get the latest phone number
+  //   this.UserInfo = this.telegramService.getUserInfoFromStorage();
 
-  }
+  // }
 
   //clear local storage data
   // clearUserInfo(){
