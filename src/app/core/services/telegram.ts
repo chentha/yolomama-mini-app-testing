@@ -102,32 +102,35 @@ export class Telegram {
   }
 
 
-  //save user info tg into storage
-  saveUserInStorage(user: any) {
-    // if(user){
-    //   localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
-    // } 
+  //set user info in local storage
+  // saveUserInfoToStorage(userInfo: any) {
+  //   if(userInfo){
+  //     localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(userInfo));
+  //   } 
+  // }
+
+  // getUserInfoFromStorage() {
+  //   try {
+  //     const data = localStorage.getItem('tg_user_info');
+  //     return data ? JSON.parse(data) : null;
+  //   } catch (error) {
+  //     console.error('Failed to get UserInfo from localStorage:', error);
+  //     return null;
+  //   }
+  // }
+
+    //save user info tg into local storage
+  saveUserToStorage(user:any){
+    if(user){
+      localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
+    } 
   }
 
 
-
-  saveUserInfoToStorage(userInfo: any): void {
-    try {
-      localStorage.setItem('tg_user_info', JSON.stringify(userInfo));
-      console.log('UserInfo saved to localStorage');
-    } catch (error) {
-      console.error('Failed to save UserInfo:', error);
-    }
-  }
-
-  getUserInfoFromStorage(): any | null {
-    try {
-      const data = localStorage.getItem('tg_user_info');
-      return data ? JSON.parse(data) : null;
-    } catch (error) {
-      console.error('Failed to get UserInfo from localStorage:', error);
-      return null;
-    }
+  //get user info tg into local storage
+  getUserToStorage(){
+    const data = this.generalService.decryptFileForLocal(localStorage.getItem('userInfo'));
+    return data ? JSON.parse(data) : null;
   }
 
 
