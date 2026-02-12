@@ -105,7 +105,7 @@ export class ProductList {
 
   //Telegram process 
   async LoadTelegramUserInfo() {
-    this.checkUserInfo = this.telegramService.getUserToStorage();
+    this.checkUserInfo = this.telegramService.getUserInStorage();
     if (this.checkUserInfo) {
       console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
       this.UserInfo = this.checkUserInfo;
@@ -126,9 +126,9 @@ export class ProductList {
     try {
       const result = await this.telegramService.requestPhoneNumber();
       this.UserInfo.phone_number = result.phone;
-      this.telegramService.saveUserToStorage(this.UserInfo);
+      this.telegramService.saveUserInStorage(this.UserInfo);
     } catch (error) {
-      this.telegramService.saveUserToStorage(this.UserInfo);
+      this.telegramService.saveUserInStorage(this.UserInfo);
     }
   }
 

@@ -119,18 +119,20 @@ export class Telegram {
   //   }
   // }
 
-    //save user info tg into local storage
-  saveUserToStorage(user:any){
+  //save user info tg into local storage
+  saveUserInStorage(user:any){
     if(user){
-      localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
+      const encrypted = this.generalService.encryptFileForLocal(JSON.stringify(user))
+      localStorage.setItem('userInfo', encrypted);
     } 
   }
 
 
   //get user info tg into local storage
-  getUserToStorage(){
-    const data = this.generalService.decryptFileForLocal(localStorage.getItem('userInfo'));
-    return data ? JSON.parse(data) : null;
+  getUserInStorage(){
+    const data = localStorage.getItem('userInfo');
+    const decrypted = this.generalService.decryptFileForLocal(data); 
+    return decrypted;
   }
 
 
