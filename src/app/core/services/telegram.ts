@@ -102,23 +102,6 @@ export class Telegram {
   }
 
 
-  //set user info in local storage
-  // saveUserInfoToStorage(userInfo: any) {
-  //   if(userInfo){
-  //     localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(userInfo));
-  //   } 
-  // }
-
-  // getUserInfoFromStorage() {
-  //   try {
-  //     const data = localStorage.getItem('tg_user_info');
-  //     return data ? JSON.parse(data) : null;
-  //   } catch (error) {
-  //     console.error('Failed to get UserInfo from localStorage:', error);
-  //     return null;
-  //   }
-  // }
-
   //save user info tg into local storage
   saveUserInStorage(user:any){
     if(user){
