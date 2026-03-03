@@ -106,11 +106,11 @@ export class ProductList {
   //Telegram process 
   async LoadTelegramUserInfo() {
     this.checkUserInfo = this.telegramService.getUserInStorage();
-    if (this.checkUserInfo) {
-      console.log('Loaded UserInfo from localStorage:', JSON.parse(this.checkUserInfo));
-      this.UserInfo = JSON.parse(this.checkUserInfo);
-      return;
-    }
+    // if (this.checkUserInfo) {
+    //   console.log('Loaded UserInfo from localStorage:', JSON.parse(this.checkUserInfo));
+    //   this.UserInfo = JSON.parse(this.checkUserInfo);
+    //   return;
+    // }
 
     console.log('wep app is work ')
 
