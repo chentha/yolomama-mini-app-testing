@@ -81,7 +81,7 @@ export class ProductList {
 
     this.cartService.clear();
 
-    this.tgInfo = this.telegramService.getWebApp().initDataUnsafe?.user;
+    this.tgInfo = this.telegramService.getWebApp().initData;
 
     // this.phone_number = this.telegramService.requestPhoneNumber();
   }
