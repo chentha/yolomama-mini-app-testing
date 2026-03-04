@@ -17,11 +17,20 @@ export class Auth {
     localStorage.setItem('token', encryptedToken);
   }
 
-  getToken(): any | null {
-    const data = localStorage.getItem('token');
+getToken(): any | null {
+  const data = localStorage.getItem('token');
+  if (!data) return null; // ✅ stop if no token
+
+  try {
     const decryptedToken = this.generalService.decryptFileForLocal(data);
-    return decryptedToken;
+    if (!decryptedToken) return null; // extra safety
+    alert('sucess to decrypt or parse token:');
+    return JSON.parse(decryptedToken);
+  } catch (error) {
+    alert('Failed to decrypt or parse token:');
+    return null;
   }
+}
 
   clearToken() {
     localStorage.removeItem('token');
