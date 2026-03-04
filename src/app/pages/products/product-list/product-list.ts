@@ -88,9 +88,7 @@ export class ProductList {
 
     this.tgInfo = this.telegramService.getWebApp().initData;
 
-     setTimeout(() => {
-      this.getTicketsTypes();
-    }, 3000); 
+    this.getTicketsTypes()
 
     // this.phone_number = this.telegramService.requestPhoneNumber();
   }
@@ -108,13 +106,14 @@ export class ProductList {
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
         alert('get data');
+        console.log('data ', respones)
 
         const data = respones?.data || respones;
 
         this.products = data;
 
       }, (err)=>{
-        alert('get is error')
+        alert('get is')
         console.error('API error:', err);
       }
     )
