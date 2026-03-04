@@ -66,6 +66,7 @@ export class ProductList {
     
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
+        alert(respones)
         const data = respones?.data || respones;
         this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
         this.cdr.detectChanges();  
