@@ -18,6 +18,7 @@ export class ProductList {
   AllData: any[] = [];
   UserInfo: any;
   checkUserInfo:any;
+  tgInfo:any
 
   constructor(
     private cartService: CartService,
@@ -35,13 +36,18 @@ export class ProductList {
 
     this.cartService.clear();
 
-    this.getTicketsTypes()
+    setTimeout(() => {
+      this.getTicketsTypes()
+    }, 3000);
+
+    
   }
 
 
   saveUserToken(){
   
     const usertoken = this.telegramService.getWebApp().initData;
+    this.tgInfo = usertoken
     if(usertoken){
       this.authService.setToken(usertoken)
     }
@@ -67,6 +73,7 @@ export class ProductList {
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
         alert(respones)
+
         const data = respones?.data || respones;
         this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
         this.cdr.detectChanges();  
