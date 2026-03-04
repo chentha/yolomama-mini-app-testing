@@ -5,6 +5,7 @@ import { Auth } from '../services/auth';
 export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(Auth);
   const token = authService.getToken();
+  alert(token)
 
   if (!token) return next(req);
 
