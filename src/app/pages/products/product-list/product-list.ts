@@ -105,7 +105,7 @@ export class ProductList {
   getTicketsTypes(){
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
-        console.log('data', respones);
+        alert('get data');
 
         const data = respones?.data || respones;
 
