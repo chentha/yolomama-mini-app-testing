@@ -37,9 +37,9 @@ export class ProductList {
 
     this.cartService.clear();
 
-    setTimeout(() => {
+    // setTimeout(() => {
       this.getTicketsTypes()
-    }, 3000);
+    // }, 3000);
 
     
   }
