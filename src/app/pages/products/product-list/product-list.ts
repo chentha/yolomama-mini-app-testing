@@ -83,6 +83,7 @@ export class ProductList {
 
       }, (err)=>{
         alert('err get')
+        alert(err)
         console.error('API error:', err);
       }
     )
