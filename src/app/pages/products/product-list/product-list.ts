@@ -66,6 +66,7 @@ export class ProductList {
   getTicketsTypes(){
       const token = this.authService.getToken();
       alert(token)
+      this.tgInfo = token
       // Add custom headers
       const headers = new HttpHeaders({
         'Authorization': `tma ${token}`, // replace with dynamic token if needed
