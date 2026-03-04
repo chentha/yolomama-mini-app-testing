@@ -15,51 +15,52 @@ declare var bootstrap: any;
   styleUrl: './product-list.scss',
 })
 export class ProductList {
-  products = [
-    {
-      id: 1,
-      name: 'Ticket',
-      price: 0.5,
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZDmAjwx0Rk_uUanK2xYza8s99jooxQeXdlA&s',
-      qty: 0
-    },
-    {
-      id: 2,
-      name: 'Snack a Jacks',
-      price: 0.5,
-      image: 'https://i.guim.co.uk/img/media/b78eba8720659708cba9c1c5338a7e7773a56446/0_85_4288_2572/master/4288.jpg?width=1200&quality=85&auto=format&fit=max&s=821d4a9159836868ba6e066ab0a15688',
-      qty: 0
-    },
-    {
-      id: 3,
-      name: 'Marlenka',
-      price: 0.5,
-      image: 'https://www.coca-cola.com/content/dam/onexp/us/en/brands/coca-cola/products/creamy-vanilla-product-shot-tile.png',
-      qty: 0
-    },
-    {
-      id: 4,
-      name: 'Evian',
-      price: 0.5,
-      image: 'https://aaashoppingcenter.ph/cdn/shop/files/2_48.png?v=1744621960',
-      qty: 0
-    },
-    {
-      id: 5,
-      name: 'Evian',
-      price: 0.5,
-      image: 'https://camhappymart.com/storage/app/public/product/2024-03-21-65fc056f632d5.png',
-      qty: 0
-    },
-    {
-      id: 6,
-      name: 'Evian',
-      price: 0.5,
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSetN68WTPI0FOPzkt3l5V6QfFyDpyMhrnweQ&s',
-      qty: 0
-    }
-  ];
+  // products = [
+  //   {
+  //     id: 1,
+  //     name: 'Ticket',
+  //     price: 0.5,
+  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZDmAjwx0Rk_uUanK2xYza8s99jooxQeXdlA&s',
+  //     qty: 0
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Snack a Jacks',
+  //     price: 0.5,
+  //     image: 'https://i.guim.co.uk/img/media/b78eba8720659708cba9c1c5338a7e7773a56446/0_85_4288_2572/master/4288.jpg?width=1200&quality=85&auto=format&fit=max&s=821d4a9159836868ba6e066ab0a15688',
+  //     qty: 0
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Marlenka',
+  //     price: 0.5,
+  //     image: 'https://www.coca-cola.com/content/dam/onexp/us/en/brands/coca-cola/products/creamy-vanilla-product-shot-tile.png',
+  //     qty: 0
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Evian',
+  //     price: 0.5,
+  //     image: 'https://aaashoppingcenter.ph/cdn/shop/files/2_48.png?v=1744621960',
+  //     qty: 0
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Evian',
+  //     price: 0.5,
+  //     image: 'https://camhappymart.com/storage/app/public/product/2024-03-21-65fc056f632d5.png',
+  //     qty: 0
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Evian',
+  //     price: 0.5,
+  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSetN68WTPI0FOPzkt3l5V6QfFyDpyMhrnweQ&s',
+  //     qty: 0
+  //   }
+  // ];
 
+  products: any[] = [];
   AllData: Product[] = [];
   checkAllData: any;
   UserInfo: any;
