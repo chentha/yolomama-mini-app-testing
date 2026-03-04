@@ -88,9 +88,7 @@ export class ProductList {
 
     this.tgInfo = this.telegramService.getWebApp().initData;
 
-     setTimeout(() => {
-      this.getTicketsTypes();
-    }, 3000); 
+    this.getTicketsTypes();
 
     // this.phone_number = this.telegramService.requestPhoneNumber();
   }

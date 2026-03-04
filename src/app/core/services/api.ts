@@ -19,9 +19,9 @@ export class Api {
 
 
   //get all data 
-  getAllData(url: any) {
-    return this.http.get(this.finalBaseApi + url)
-  }
+ getAllData(url: any, headers?: any) {
+  return this.http.get(this.finalBaseApi + url, { headers });
+}
 
   //get detail data by id 
   getDataDetailById(url: any, id: any, filter?: any) {
