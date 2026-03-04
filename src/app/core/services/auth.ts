@@ -13,24 +13,22 @@ export class Auth {
   }
 
   setToken(token: any) {
-    const encryptedToken = this.generalService.encryptFileForLocal(JSON.stringify(token))
+    const encryptedToken = this.generalService.encryptFileForLocal(token)
     localStorage.setItem('token', encryptedToken);
   }
 
-getToken(): any | null {
-  const data = localStorage.getItem('token');
-  if (!data) return null; // ✅ stop if no token
+  // getToken(): any | null {
+  //   const data = localStorage.getItem('token');
+  //   const decryptedToken = this.generalService.decryptFileForLocal(data);
+  //   return decryptedToken;
+  // }
 
-  try {
-    const decryptedToken = this.generalService.decryptFileForLocal(data);
-    if (!decryptedToken) return null; // extra safety
-    alert('sucess to decrypt or parse token:');
-    return JSON.parse(decryptedToken);
-  } catch (error) {
-    alert('Failed to decrypt or parse token:');
-    return null;
+  getToken(): string | null {
+    const data = localStorage.getItem('token');
+    if (!data) return null;
+    const decrypted = this.generalService.decryptFileForLocal(data);
+    return decrypted ? JSON.parse(decrypted) : null;
   }
-}
 
   clearToken() {
     localStorage.removeItem('token');
