@@ -48,7 +48,7 @@ export class ProductList {
   saveUserToken(){
   
     const usertoken = this.telegramService.getWebApp().initData;
-    alert(Token)
+    alert(usertoken)
     this.tgInfo = usertoken
     if(usertoken){
       this.authService.setToken(usertoken)
@@ -65,7 +65,7 @@ export class ProductList {
 
   getTicketsTypes(){
       const token = this.authService.getToken();
-      alert(token)
+      // alert(token)
       // Add custom headers
       const headers = new HttpHeaders({
         'Authorization': `tma ${token}`, // replace with dynamic token if needed
