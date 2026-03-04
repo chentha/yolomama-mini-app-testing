@@ -38,7 +38,11 @@ export class ProductList {
     this.cartService.clear();
 
     // setTimeout(() => {
+    const token = this.authService.getToken();
+    if(token){
       this.getTicketsTypes()
+    }
+      
     // }, 3000);
 
     
@@ -64,14 +68,14 @@ export class ProductList {
 
 
   getTicketsTypes(){
-      const token = this.authService.getToken();
-      alert(token)
-      this.tgInfo = token
-      // Add custom headers
-      const headers = new HttpHeaders({
-        'Authorization': `tma ${token}`, // replace with dynamic token if needed
-        'Content-Type': 'application/json',   
-      });
+      // const token = this.authService.getToken();
+      // alert(token)
+      // this.tgInfo = token
+      // // Add custom headers
+      // const headers = new HttpHeaders({
+      //   'Authorization': `Baeres ${token}`, // replace with dynamic token if needed
+      //   'Content-Type': 'application/json',   
+      // });
     
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
