@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { Product } from '../../../core/models/product.model';
 import { Telegram } from '../../../core/services/telegram';
+import { Api } from '../../../core/services/api';
+import { Auth } from '../../../core/services/auth';
 
 declare var bootstrap: any;
 @Component({
@@ -68,7 +70,9 @@ export class ProductList {
 
   constructor(
     private cartService: CartService,
-    private telegramService: Telegram
+    private telegramService: Telegram,
+    private authService: Auth,
+    private allApi: Api
   ) {
 
   }
@@ -85,6 +89,31 @@ export class ProductList {
 
     // this.phone_number = this.telegramService.requestPhoneNumber();
   }
+
+   saveUserToken(){
+  
+    const usertoken = this.telegramService.getWebApp().initData;
+    if(usertoken){
+      this.authService.setToken(usertoken)
+    }
+
+  }
+
+  getTicketsTypes(){
+    this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
+      (respones:any) =>{
+        console.log('data', respones);
+
+        const data = respones?.data || respones;
+
+        this.products = data;
+
+      }, (err)=>{
+        console.error('API error:', err);
+      }
+    )
+  }
+
 
 
   //  getData(){

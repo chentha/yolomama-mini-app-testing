@@ -86,6 +86,7 @@ export class Telegram {
   }
 
 
+
   getWebApp() {
     return this.tg;
   }

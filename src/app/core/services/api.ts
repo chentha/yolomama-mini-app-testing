@@ -15,6 +15,8 @@ export class Api {
 
   }
 
+   ticketsTypeUrl = '/api/tickets/types/'
+
 
   //get all data 
   getAllData(url: any) {
