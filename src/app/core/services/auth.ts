@@ -9,25 +9,27 @@ import { Telegram } from './telegram';
 export class Auth {
 
   private token: string | null = null;
+  private readyResolve!: () => void;
+  readonly ready = new Promise<void>(resolve => {
+    this.readyResolve = resolve;
+  });
 
   constructor(
     private generalService: General,
     private telegramService: Telegram
-  ) {
-    this.initToken();
-  }
+  ) {}
 
-  private initToken() {
-    // 1. Try getting fresh token from Telegram
+  initToken(): Promise<void> {
     const initData = this.telegramService.getWebApp()?.initData;
     if (initData) {
       this.token = initData;
       this.persistToken(initData);
-      return;
+    } else {
+      this.token = this.loadStoredToken();
     }
 
-    // 2. Fallback to stored token (e.g. app reloaded outside Telegram)
-    this.token = this.loadStoredToken();
+    this.readyResolve();
+    return this.ready;
   }
 
   getToken(): string | null {
