@@ -15,7 +15,8 @@ export class Api {
 
   }
 
-   ticketsTypeUrl = '/api/tickets/types/'
+   ticketsTypeUrl = '/api/tickets/types/';
+  orderPurchaseUrl = '/api/orders/purchase/';
 
 
   //get all data 

@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
-import { Product } from '../../../core/models/product.model';
 import { Telegram } from '../../../core/services/telegram';
-import { Api } from '../../../core/services/api';
 import { Auth } from '../../../core/services/auth';
+import { Api } from '../../../core/services/api';
+import { HttpHeaders } from '@angular/common/http';
 
-declare var bootstrap: any;
 @Component({
   selector: 'app-product-list',
   imports: [CommonModule, RouterLink],
@@ -15,85 +14,32 @@ declare var bootstrap: any;
   styleUrl: './product-list.scss',
 })
 export class ProductList {
-  // products = [
-  //   {
-  //     id: 1,
-  //     name: 'Ticket',
-  //     price: 0.5,
-  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZDmAjwx0Rk_uUanK2xYza8s99jooxQeXdlA&s',
-  //     qty: 0
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Snack a Jacks',
-  //     price: 0.5,
-  //     image: 'https://i.guim.co.uk/img/media/b78eba8720659708cba9c1c5338a7e7773a56446/0_85_4288_2572/master/4288.jpg?width=1200&quality=85&auto=format&fit=max&s=821d4a9159836868ba6e066ab0a15688',
-  //     qty: 0
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Marlenka',
-  //     price: 0.5,
-  //     image: 'https://www.coca-cola.com/content/dam/onexp/us/en/brands/coca-cola/products/creamy-vanilla-product-shot-tile.png',
-  //     qty: 0
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Evian',
-  //     price: 0.5,
-  //     image: 'https://aaashoppingcenter.ph/cdn/shop/files/2_48.png?v=1744621960',
-  //     qty: 0
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Evian',
-  //     price: 0.5,
-  //     image: 'https://camhappymart.com/storage/app/public/product/2024-03-21-65fc056f632d5.png',
-  //     qty: 0
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Evian',
-  //     price: 0.5,
-  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSetN68WTPI0FOPzkt3l5V6QfFyDpyMhrnweQ&s',
-  //     qty: 0
-  //   }
-  // ];
-
-  products: any[] = [];
-  AllData: Product[] = [];
-  checkAllData: any;
+  
+  AllData: any[] = [];
   UserInfo: any;
-  phone_number: any;
   checkUserInfo:any;
-
-  tgInfo:any;
 
   constructor(
     private cartService: CartService,
     private telegramService: Telegram,
     private authService: Auth,
-    private allApi: Api
+    private allApi: Api,
+    private cdr: ChangeDetectorRef
   ) {
-    this.saveUserToken()
+    this.saveUserToken();
   }
 
-  ngOnInit() {
-    // console.log('data loaded item list');
-    // this.getData()
+  ngOnInit(){
     this.LoadTelegramUserInfo();
     this.hideBackButton();
 
     this.cartService.clear();
 
-    this.tgInfo = this.telegramService.getWebApp().initData;
-
     this.getTicketsTypes()
-
-    // this.phone_number = this.telegramService.requestPhoneNumber();
   }
 
-   saveUserToken(){
+
+  saveUserToken(){
   
     const usertoken = this.telegramService.getWebApp().initData;
     if(usertoken){
@@ -102,50 +48,54 @@ export class ProductList {
 
   }
 
+
+  //hide back btn in topbar tg
+  hideBackButton() {
+    this.telegramService.hideBackButton();
+  }
+
+
   getTicketsTypes(){
+      const token = this.authService.getToken();
+      alert(token)
+      // Add custom headers
+      const headers = new HttpHeaders({
+        'Authorization': `tma ${token}`, // replace with dynamic token if needed
+        'Content-Type': 'application/json',   
+      });
+    
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
-        alert('get data');
-        console.log('data ', respones)
-
         const data = respones?.data || respones;
-
-        this.products = data;
+        this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
+        this.cdr.detectChanges();  
+        console.log('all data', this.AllData)
 
       }, (err)=>{
-        alert('get is')
         console.error('API error:', err);
       }
     )
   }
 
-
-
-  //  getData(){
-  //   this.cartService.getCart().subscribe(
+  // checkExistingData(){
+  //  this.cartService.getCart().subscribe(
   //     (respone:any) =>{
-  //       console.log('data cart1', respone);
-  //       this.checkAllData = respone[0]?.product;
+  //       console.log('data cart', respone);
+  //       const ExistingData = respone[0]?.product.length > 0;
+  //       if(ExistingData){
+
+  //       }else{
+
+  //       }
   //     }
   //   )
   // }
 
 
-
-  hideBackButton() {
-    this.telegramService.hideBackButton();
-
-    // this.telegramService.onBack(() => {
-    //   this.router.navigate(['/product-list']);
-    // });
-  }
-
-
-  //Telegram process 
   async LoadTelegramUserInfo() {
     this.checkUserInfo = this.telegramService.getUserInStorage();
-    const checkUserTg = this.telegramService.getWebApp().initDataUnsafe?.user;
-    if (!checkUserTg) {
+    // const checkUserTg = this.telegramService.getWebApp().initDataUnsafe?.user;
+    if (this.checkUserInfo) {
       console.log('Loaded UserInfo from localStorage:', JSON.parse(this.checkUserInfo));
       this.UserInfo = JSON.parse(this.checkUserInfo);
       return;
@@ -174,33 +124,19 @@ export class ProductList {
   }
 
 
-  // resetData(){
-  //   this.telegramService.clearAppData();
-  // }
-
-  // openUserInfoModal() {
-  // // Reload UserInfo from storage to get the latest phone number
-  //   this.UserInfo = this.telegramService.getUserInfoFromStorage();
-
-  // }
-
-  //clear local storage data
-  clearUserInfo(){
-    this.UserInfo = this.telegramService.clearUserInfoFromStorage();
-  }
-
-
   //increase cart
   increase(p: any) {
     p.qty++;
-    this.UpdatedAllData(p);
+     this.cdr.detectChanges();
+    // this.UpdatedAllData(p);
   }
 
 
   //decrease cart
   decrease(p: any) {
     if (p.qty > 0) p.qty--;
-    this.UpdatedAllData(p);
+     this.cdr.detectChanges();
+    //  this.UpdatedAllData(p);
   }
 
   //on input in or de cart
@@ -224,11 +160,11 @@ export class ProductList {
       if (index === -1) {
         this.AllData.push({ ...data });
       } else {
-        this.AllData[index].qty = data.qty;
+        this.AllData[index].qty = data.qty; 
       }
     } else {
       if (index !== -1) {
-        this.AllData.splice(index, 1);
+        this.AllData.splice(index, 1); 
       }
     }
 
@@ -239,24 +175,16 @@ export class ProductList {
 
   //add data to cart
   AddCart() {
-
-    if (!this.checkAllData) {
-      this.cartService.add(this.AllData);
-    } else {
-      this.AllData.forEach(item => {
-        this.cartService.updateQty(item.id, item.qty, item);
-      });
-    }
-
+    const selected = this.AllData.filter(item => item.qty > 0);
+    this.cartService.add(selected);
   }
-
 
 
   get totalItems() {
-    return this.products.reduce((a, b) => a + b.qty, 0);
+    return this.AllData.reduce((a, b) => a + b.qty, 0);
   }
 
   get totalPrice() {
-    return this.products.reduce((a, b) => a + (b.qty * b.price), 0);
+    return this.AllData.reduce((a, b) => a + (b.qty * b.price), 0);
   }
 }

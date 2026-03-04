@@ -4,6 +4,9 @@ import { CartService } from '../../../core/services/cart.service';
 import { PaymentMethod } from '../../../core/services/payment-method';
 import { Telegram } from '../../../core/services/telegram';
 import { Router } from '@angular/router';
+import { Api } from '../../../core/services/api';
+import { HttpHeaders } from '@angular/common/http';
+import { Auth } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-checkout-page',
@@ -17,29 +20,29 @@ export class CheckoutPage {
   selectedMethod: any;
 
    payment_method:any;
-  telegram: any;
-
+  
+  purchaseOrder: any;
+  tmpItems:any;
 
   constructor(
     public cartService: CartService,
     private paymentMethod: PaymentMethod,
     private telegramService: Telegram,
-    private router: Router
+    private router: Router,
+    private allApi: Api,
+    private authService: Auth
   ){
     
   }
 
   ngOnInit(){
-    this.getPaymentMethod();
+    this.getPaymentMethod()
     this.getData();
     this.showBackButton();
   }
 
-  // ngOnDestroy() {
-  //   this.telegram.hideBackButton();
-  // }
 
-  //button back to product page
+  //show back btn in topbar mini app tg
   showBackButton(){
       this.telegramService.showBackButton();
 
@@ -50,11 +53,61 @@ export class CheckoutPage {
   }
 
 
+  // orderPurchase(){
+  //   let tmp_obj = {
+  //     "items": this.tmpItems,    
+  //     "visit_date": "2025-08-15",
+  //     "notes": "Birthday party for Sam"
+  //   }
+  //   this.allApi.createData(this.allApi.orderPurchaseUrl, tmp_obj).subscribe(
+  //     (repsones:any) =>{
+  //       console.log('purchase success', repsones);
+  //       this.purchaseOrder = repsones;
+  //     }, (err) =>{
+  //       console.log('err', err)
+  //     }
+  //   )
+  // }
+
+  // import { HttpHeaders } from '@angular/common/http';
+
+orderPurchase() {
+  const tmp_obj = {
+    items: this.tmpItems,
+    visit_date: "2025-08-15",
+    notes: "Birthday party for Sam"
+  };
+
+  const token = this.authService.getToken()
+  alert(token)
+  // Add custom headers
+  const headers = new HttpHeaders({
+    'Authorization': `tma ${token}`, // replace with dynamic token if needed
+    'Content-Type': 'application/json',   
+  });
+
+  this.allApi.createData(this.allApi.orderPurchaseUrl, tmp_obj ).subscribe(
+    (response: any) => {
+      console.log('purchase success', response);
+      this.purchaseOrder = response;
+    },
+    (err) => {
+      console.log('err', err);
+    }
+  );
+}
+
+  //get all data cart
   getData(){
     this.cartService.getCart().subscribe(
       (respone:any) =>{
         console.log('data cart', respone);
         this.CartData = respone[0]?.product; 
+        this.tmpItems = this.CartData.map(item => ({
+          id: item.id,
+          quantity: item.qty
+        }));
+
 
         if(this.CartData){
           this.totalPrice();
@@ -65,11 +118,11 @@ export class CheckoutPage {
 
 
   totalPrice(): number {
-    return this.CartData?.reduce((total, item) => {
-      return total + (item.price * item.qty);
-    }, 0);
+    return (this.CartData ?? []).reduce(
+      (total, { price = 0, qty = 0 }) => total + (price * qty),
+      0
+    );
   }
-
 
     //increase cart
   increase(p: any) {
@@ -113,7 +166,7 @@ export class CheckoutPage {
       }
     }
 
-    console.log('CartData:', this.CartData);
+    // console.log('CartData:', this.CartData);
   }
 
 
@@ -135,7 +188,6 @@ export class CheckoutPage {
     this.selectedMethod = method;
   }
 
-  
   // get totalItems() {
   //   return this.products.reduce((a, b) => a + b.qty, 0);
   // }
