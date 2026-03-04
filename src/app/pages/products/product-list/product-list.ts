@@ -28,7 +28,7 @@ export class ProductList {
     private allApi: Api,
     private cdr: ChangeDetectorRef
   ) {
-    this.saveUserToken();
+    // this.saveUserToken();
   }
 
   ngOnInit(){
@@ -45,16 +45,16 @@ export class ProductList {
   }
 
 
-  saveUserToken(){
+  // saveUserToken(){
   
-    const usertoken = this.telegramService.getWebApp().initData;
-    alert(usertoken)
-    this.tgInfo = usertoken
-    if(usertoken){
-      this.authService.setToken(usertoken)
-    }
+  //   const usertoken = this.telegramService.getWebApp().initData;
+  //   alert(usertoken)
+  //   this.tgInfo = usertoken
+  //   if(usertoken){
+  //     this.authService.setToken(usertoken)
+  //   }
 
-  }
+  // }
 
 
   //hide back btn in topbar tg
