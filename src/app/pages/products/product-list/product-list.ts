@@ -75,7 +75,7 @@ export class ProductList {
     private authService: Auth,
     private allApi: Api
   ) {
-
+    this.saveUserToken()
   }
 
   ngOnInit() {
@@ -87,6 +87,8 @@ export class ProductList {
     this.cartService.clear();
 
     this.tgInfo = this.telegramService.getWebApp().initData;
+
+    this.getTicketsTypes()
 
     // this.phone_number = this.telegramService.requestPhoneNumber();
   }
