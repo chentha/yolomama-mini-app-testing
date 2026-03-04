@@ -6,6 +6,7 @@ import { Telegram } from '../../../core/services/telegram';
 import { Auth } from '../../../core/services/auth';
 import { Api } from '../../../core/services/api';
 import { HttpHeaders } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-list',
@@ -47,6 +48,7 @@ export class ProductList {
   saveUserToken(){
   
     const usertoken = this.telegramService.getWebApp().initData;
+    alert(Token)
     this.tgInfo = usertoken
     if(usertoken){
       this.authService.setToken(usertoken)
