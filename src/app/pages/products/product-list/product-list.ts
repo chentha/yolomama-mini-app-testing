@@ -112,6 +112,7 @@ export class ProductList {
         this.products = data;
 
       }, (err)=>{
+        alert('get is error')
         console.error('API error:', err);
       }
     )
