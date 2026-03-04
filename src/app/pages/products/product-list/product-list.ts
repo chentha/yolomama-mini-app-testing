@@ -82,6 +82,7 @@ export class ProductList {
         console.log('all data', this.AllData)
 
       }, (err)=>{
+        alert(err)
         console.error('API error:', err);
       }
     )
