@@ -38,10 +38,7 @@ export class ProductList {
     this.cartService.clear();
 
     // setTimeout(() => {
-    const token = this.authService.getToken();
-    if(token){
-      this.getTicketsTypes()
-    }
+    this.getTicketsTypes()
       
     // }, 3000);
 
