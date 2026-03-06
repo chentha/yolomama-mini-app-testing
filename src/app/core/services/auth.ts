@@ -24,6 +24,7 @@ export class Auth {
     
     if(initData != 'query_id'){
       console.log('user token is saved', initData)   
+      this.token = initData
     }else{
       console.log('user token no save', initData)   
     }

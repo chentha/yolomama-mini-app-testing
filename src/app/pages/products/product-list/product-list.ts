@@ -39,6 +39,7 @@ export class ProductList {
 
     // setTimeout(() => {
     this.getTicketsTypes()
+    this.saveUserToken()
       
     // }, 3000);
 
@@ -47,7 +48,7 @@ export class ProductList {
 
 
   saveUserToken(){
-  
+    this.tgInfo = this.authService.getToken()
     // const usertoken = this.telegramService.getWebApp().initData;
     // console.log('user token', usertoken)
     // alert(usertoken)
