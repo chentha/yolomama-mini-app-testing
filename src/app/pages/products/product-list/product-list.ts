@@ -43,6 +43,10 @@ export class ProductList {
     const checkToken = this.authService.getToken();
     if(!checkToken){
       this.saveUserToken()
+      console.log('saved token')
+    }else{
+      this.tgInfo = checkToken;
+      console.log('get token')
     }
     // }, 3000);
 
@@ -53,8 +57,6 @@ export class ProductList {
   saveUserToken(){
     const usertoken = this.telegramService.getWebApp().initData;
     console.log('saved new token', usertoken)
-
-    this.tgInfo = usertoken
     if(usertoken){
       this.authService.saveToken(usertoken)
     }
