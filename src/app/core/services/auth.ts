@@ -21,6 +21,7 @@ export class Auth {
 
   initToken(): Promise<void> {
     const initData = this.telegramService.getWebApp()?.initData;
+    console.log('user token', initData)
     if (initData) {
       this.token = initData;
       this.persistToken(initData);

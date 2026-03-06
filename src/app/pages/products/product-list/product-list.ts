@@ -46,16 +46,17 @@ export class ProductList {
   }
 
 
-  // saveUserToken(){
+  saveUserToken(){
   
-  //   const usertoken = this.telegramService.getWebApp().initData;
-  //   alert(usertoken)
-  //   this.tgInfo = usertoken
-  //   if(usertoken){
-  //     this.authService.setToken(usertoken)
-  //   }
+    // const usertoken = this.telegramService.getWebApp().initData;
+    // console.log('user token', usertoken)
+    // alert(usertoken)
+    // this.tgInfo = usertoken
+    // if(usertoken){
+    //   this.authService.setToken(usertoken)
+    // }
 
-  // }
+  }
 
 
   //hide back btn in topbar tg
@@ -65,14 +66,7 @@ export class ProductList {
 
 
   getTicketsTypes(){
-      // const token = this.authService.getToken();
-      // alert(token)
-      // this.tgInfo = token
-      // // Add custom headers
-      // const headers = new HttpHeaders({
-      //   'Authorization': `Baeres ${token}`, // replace with dynamic token if needed
-      //   'Content-Type': 'application/json',   
-      // });
+
     
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
