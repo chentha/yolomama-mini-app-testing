@@ -19,12 +19,12 @@ export class Auth {
     private telegramService: Telegram
   ) {}
 
-     /**
-   * Save or update token in service memory
-   * @param token string
-   */
+  //    /**
+  //  * Save or update token in service memory
+  //  * @param token string
+  //  */
   setToken(token: string) {
-    this.token = token;
+    sessionStorage.setItem('token', token)
     console.log('Token saved in memory.');
   }
 
@@ -32,7 +32,7 @@ export class Auth {
    * Get token from service memory
    */
   getToken(): string | null {
-    return this.token;
+    return sessionStorage.getItem('token');
   }
 
   /**
