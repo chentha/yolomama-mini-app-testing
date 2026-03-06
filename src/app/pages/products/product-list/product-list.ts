@@ -39,8 +39,11 @@ export class ProductList {
 
     // setTimeout(() => {
     this.getTicketsTypes()
-    this.saveUserToken()
-      
+
+    const checkToken = this.authService.getToken();
+    if(!checkToken){
+      this.saveUserToken()
+    }
     // }, 3000);
 
     
@@ -48,14 +51,13 @@ export class ProductList {
 
 
   saveUserToken(){
-    this.tgInfo = this.authService.getToken()
-    // const usertoken = this.telegramService.getWebApp().initData;
-    // console.log('user token', usertoken)
-    // alert(usertoken)
-    // this.tgInfo = usertoken
-    // if(usertoken){
-    //   this.authService.setToken(usertoken)
-    // }
+    const usertoken = this.telegramService.getWebApp().initData;
+    console.log('saved new token', usertoken)
+
+    this.tgInfo = usertoken
+    if(usertoken){
+      this.authService.saveToken(usertoken)
+    }
 
   }
 

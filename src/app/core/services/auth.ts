@@ -39,6 +39,10 @@ export class Auth {
     return this.ready;
   }
 
+  saveToken(token: string){
+    this.token = token
+  }
+
   getToken(): string | null {
     return this.token;
   }
