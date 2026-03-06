@@ -58,7 +58,7 @@ export class ProductList {
     const usertoken = this.telegramService.getWebApp().initData;
     console.log('saved new token', usertoken)
     if(usertoken){
-      this.authService.saveToken(usertoken)
+      this.authService.setToken(usertoken)
     }
 
   }
