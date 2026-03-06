@@ -20,9 +20,9 @@ export class Auth {
   ) {}
 
   initToken(): Promise<void> {
-    const initData = this.telegramService.getWebApp()?.initData;
+    const initData = this.telegramService.getWebApp().initData;
     
-    if(initData != 'query_id'){
+    if(initData != 'query_id' || initData != null){
       console.log('user token is saved', initData)   
       this.token = initData
     }else{
