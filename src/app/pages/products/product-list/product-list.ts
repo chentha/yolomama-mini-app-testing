@@ -40,16 +40,16 @@ export class ProductList {
     // setTimeout(() => {
     this.getTicketsTypes()
 
-    const checkToken = this.authService.getToken();
-    if(!checkToken){
-      this.saveUserToken()
-      console.log('saved token')
-    }else{
-      this.tgInfo = checkToken;
-      console.log('get token')
-    }
+    // const checkToken = this.authService.getToken();
+    // if(!checkToken){
+    //   this.saveUserToken()
+    //   console.log('saved token')
+    // }else{
+    //   this.tgInfo = checkToken;
+    //   console.log('get token')
+    // }
     // }, 3000);
-
+    this.tgInfo = this.authService.getToken()
     
   }
 
@@ -61,7 +61,6 @@ export class ProductList {
     if(usertoken){
       this.authService.setToken(usertoken)
     }
-
   }
 
 

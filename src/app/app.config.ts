@@ -13,11 +13,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([JwtInterceptor])
     )   
-    // ,{
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (auth: Auth) => () => auth.initToken(),
-    //   deps: [Auth],
-    //   multi: true
-    // }
+    ,{
+      provide: APP_INITIALIZER,
+      useFactory: (auth: Auth) => () => auth.initToken(),
+      deps: [Auth],
+      multi: true
+    }
   ]
 };

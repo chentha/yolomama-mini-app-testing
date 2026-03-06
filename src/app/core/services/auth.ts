@@ -19,6 +19,21 @@ export class Auth {
     private telegramService: Telegram
   ) {}
 
+  initToken(){
+    const existingToken = this.getToken();
+    if(existingToken){
+      console.log('existing token', existingToken);
+      return;
+    }else{
+      const usertoken = this.telegramService.getWebApp().initData;
+      console.log('saved new token', usertoken)
+      if (usertoken) {
+        this.setToken(usertoken)
+      }
+    }
+  }
+
+
   //    /**
   //  * Save or update token in service memory
   //  * @param token string
