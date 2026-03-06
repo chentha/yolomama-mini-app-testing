@@ -57,6 +57,7 @@ export class ProductList {
   saveUserToken(){
     const usertoken = this.telegramService.getWebApp().initData;
     console.log('saved new token', usertoken)
+    this.tgInfo = usertoken
     if(usertoken){
       this.authService.setToken(usertoken)
     }
@@ -75,7 +76,7 @@ export class ProductList {
     
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe(
       (respones:any) =>{
-        alert(respones)
+        // alert(respones)
 
         const data = respones?.data || respones;
         this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
@@ -83,8 +84,8 @@ export class ProductList {
         console.log('all data', this.AllData)
 
       }, (err)=>{
-        alert('err get')
-        alert(err)
+        // alert('err get')
+        // alert(err)
         console.error('API error:', err);
       }
     )
