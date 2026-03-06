@@ -21,13 +21,18 @@ export class Auth {
 
   initToken(): Promise<void> {
     const initData = this.telegramService.getWebApp()?.initData;
-    console.log('user token', initData)
-    if (initData) {
-      this.token = initData;
-      this.persistToken(initData);
-    } else {
-      this.token = this.loadStoredToken();
+    
+    if(initData != 'query_id'){
+      console.log('user token is saved', initData)   
+    }else{
+      console.log('user token no save', initData)   
     }
+    // if (initData) {
+    //   this.token = initData;
+    //   this.persistToken(initData);
+    // } else {
+    //   this.token = this.loadStoredToken();
+    // }
 
     this.readyResolve();
     return this.ready;
